@@ -107,15 +107,18 @@
     async function updateMarkup() {
       document.getElementById('loading').style.display = "block";
       document.getElementById('widget').style.display = "none";
-      let status = await getServerStatus();
+      const status = await getServerStatus();
       document.getElementById('loading').style.display = "none";
       document.getElementById('widget').style.display = "block";
+
+      let playerCount = parseInt(status.players.online);
+      const emojies = ["&#128546;", "&#128559;", "&#129321;"];
       
       document.getElementById('server-name').innerText = status.motd.clean;
       document.getElementById('server-icon').src = status.icon;
       document.getElementById('players-online').innerText = status.players.online;
-      document.getElementById('players-text').innerText = parseInt(status.players.online) === 1 ? "player" : "players";
-      document.getElementById('emoji').innerHTML = parseInt(status.players.online) === 0 ? "&#128546;" : "&#129321;"
+      document.getElementById('players-text').innerText = playerCount === 1 ? "player" : "players";
+      document.getElementById('emoji').innerHTML = playerCount <= emojies.length - 1 ? emojies[playerCount] : "&#128565;"
     }
     
     (async () => {
