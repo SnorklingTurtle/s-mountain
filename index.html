@@ -4,7 +4,20 @@
     <title>Server Status</title>
     <meta name="robots" content="noindex, nofollow">
     <style>
-      body { background-color: darkgray; }
+      /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select{margin:0}html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+    </style>
+    
+    <style>
+      .page { 
+        background-color: darkgray; 
+        height: 100vh;
+      }
+      .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
       .widget { display: none; }
       .loading {
           --color-1: rgba(255, 255, 255, 0.2);
@@ -46,13 +59,14 @@
       }
     </style>
   </head>
-  <body>
+  <body class="page">
+    <main class="main">
     <span id="loading" class="loading"></span>
     <div id="widget" class="widget">
-      <p id="server-name"></p>
-      <img id="server-icon" alt="">
-      <p id="players-online"></p>
+      <p><span id="players-online"></span> <span id="players-text"></span> online at <span id="server-name"></span></p>
+      <img id="server-icon" alt="" />
     </div>
+    </main>
   </body>
   <script>
     async function getServerStatus() {
@@ -79,6 +93,7 @@
       document.getElementById('server-name').innerText = status.motd.clean;
       document.getElementById('server-icon').src = status.icon;
       document.getElementById('players-online').innerText = status.players.online;
+      document.getElementById('players-text').innerText = parseInt(status.players.online) === 1 ? "player" : "players";
     })();
   </script>
 </html>
