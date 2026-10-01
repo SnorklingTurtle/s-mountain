@@ -1,17 +1,58 @@
 <!doctype html>
 <html>
   <head>
-    <title>The mountain</title>
+    <title>Server Status</title>
     <meta name="robots" content="noindex, nofollow">
     <style>
       body { background-color: darkgray; }
+      .widget { display: none; }
+      .loading {
+          --color-1: rgba(255, 255, 255, 0.2);
+          --color-2: #fff;
+          --size: 1px;
+      
+          width: calc(160 * var(--size));
+          height: calc(8 * var(--size));
+          border-radius: calc(4 * var(--size));
+          display: block;
+          margin: calc(20 * var(--size)) auto;
+          position: relative;
+          background: var(--color-1);
+          overflow: hidden;
+          box-sizing: border-box;
+      }
+      
+      .loading::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: calc(70 * var(--size));
+          border-radius: inherit;
+          background: var(--color-2);
+          box-sizing: border-box;
+          animation: slide 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+      
+      @keyframes slide {
+          0% {
+              transform: translateX(calc(-70 * var(--size)));
+          }
+      
+          100% {
+              transform: translateX(calc(160 * var(--size)));
+          }
+      }
     </style>
   </head>
   <body>
-    <p id="server-name">Loading...</p>
-    <img id="server-icon" alt="">
-    <p id="players-online">Loading...</p>
-    
+    <span id="loading" class="loading"></span>
+    <div id="widget" class="widget">
+      <p id="server-name"></p>
+      <img id="server-icon" alt="">
+      <p id="players-online"></p>
+    </div>
   </body>
   <script>
     async function getServerStatus() {
@@ -33,6 +74,8 @@
 
     (async () => {
       let status = await getServerStatus();
+      document.getElementById('loading').style.display = "none";
+      document.getElementById('widget').style.display = "block";
       document.getElementById('server-name').innerText = status.motd.clean;
       document.getElementById('server-icon').src = status.icon;
       document.getElementById('players-online').innerText = status.players.online;
