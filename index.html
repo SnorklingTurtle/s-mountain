@@ -30,9 +30,12 @@
       }
       return result;
     }
-    let status = await getServerStatus();
-    document.getElementById('server-name').innerText = status.motd.clean;
-    document.getElementById('server-icon').src = status.icon;
-    document.getElementById('players-online').innerText = status.players.online;
+
+    (async () => {
+      let status = await getServerStatus();
+      document.getElementById('server-name').innerText = status.motd.clean;
+      document.getElementById('server-icon').src = status.icon;
+      document.getElementById('players-online').innerText = status.players.online;
+    })();
   </script>
 </html>
