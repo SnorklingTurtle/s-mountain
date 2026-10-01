@@ -20,11 +20,17 @@
         align-items: center;
         height: 100%;
       }
-      .widget { display: none; }
+      .widget {
+        width: 30rem;
+        display: none; 
+      }
       .server-icon {
-        width: 20rem;
+        width: 100%;
         image-rendering: pixelated;
         margin-bottom: 1rem;
+      }
+      .emoji {
+        font-variant-emoji: emoji;
       }
       .loading {
           --color-1: rgba(255, 255, 255, 0.2);
@@ -41,7 +47,6 @@
           overflow: hidden;
           box-sizing: border-box;
       }
-      
       .loading::after {
           content: '';
           position: absolute;
@@ -72,7 +77,7 @@
     <div id="widget" class="widget">
       <img id="server-icon" alt="" class="server-icon" />
       <h1><span id="server-name"></span></h1>
-      <p><span id="players-online"></span> <span id="players-text"></span> online</p>
+      <p><span id="players-online"></span> <span id="players-text"></span> online <span id="emoji"></span></p>
     </div>
     </main>
   </body>
@@ -102,6 +107,8 @@
       document.getElementById('server-icon').src = status.icon;
       document.getElementById('players-online').innerText = status.players.online;
       document.getElementById('players-text').innerText = parseInt(status.players.online) === 1 ? "player" : "players";
+      document.getElementById('emoji').innerHTML = parseInt(status.players.online) === 0 ? "&#128546;" : "&#129321;"
+      
     })();
   </script>
 </html>
