@@ -2,18 +2,23 @@
 <html>
   <head>
     <title>The mountain</title>
+    <meta name="robots" content="noindex, nofollow">
     <style>
       body { background-color: darkgray; }
     </style>
   </head>
   <body>
-    <p>Lorem lipsum.</p>
+    <p id="server-name">Loading...</p>
+    <img id="server-icon" alt="">
+    <p id="players-online">Loading...</p>
+    
   </body>
   <script>
     async function getServerStatus() {
       const url = "https://api.mcstatus.io/v2/status/java/91.99.208.172";
+      let response;
       try {
-        const response = await fetch(url);
+        response = await fetch(url);
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
@@ -23,7 +28,11 @@
       } catch (error) {
         console.error(error.message);
       }
+      return response;
     }
-    getServerStatus();
+    let status = await getServerStatus();
+    document.getElementById('server-name').innerText = status.motd.clean;
+    document.getElementById('server-icon').src = status.icon;
+    document.getElementById('players-online').innerText = status.players.online;
   </script>
 </html>
