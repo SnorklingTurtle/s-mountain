@@ -8,9 +8,11 @@
     </style>
     
     <style>
-      .page { 
+      body { 
         background-color: darkgray; 
         height: 100vh;
+        color: lightgray;
+        font-family: "sans serif";
       }
       .main {
         display: flex;
@@ -19,6 +21,11 @@
         height: 100%;
       }
       .widget { display: none; }
+      .server-icon {
+        width: 20rem;
+        image-rendering: pixelated;
+        margin-bottom: 1rem;
+      }
       .loading {
           --color-1: rgba(255, 255, 255, 0.2);
           --color-2: #fff;
@@ -63,8 +70,9 @@
     <main class="main">
     <span id="loading" class="loading"></span>
     <div id="widget" class="widget">
-      <p><span id="players-online"></span> <span id="players-text"></span> online at <span id="server-name"></span></p>
-      <img id="server-icon" alt="" />
+      <img id="server-icon" alt="" class="server-icon" />
+      <h1><span id="server-name"></span></h1>
+      <p><span id="players-online"></span> <span id="players-text"></span> online</p>
     </div>
     </main>
   </body>
